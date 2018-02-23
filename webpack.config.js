@@ -16,5 +16,9 @@ module.exports = {
         plugins: ["transform-react-jsx"] // babelのtransform-react-jsxプラグインを使ってjsxを変換
       }
     }]
-  }
+  },
+  resolve: {
+    modules: ['node_modules'],
+    extensions: ['.js', '.jsx']
+  },
 };

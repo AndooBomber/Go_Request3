@@ -18,9 +18,8 @@ type Person struct {
 
 func (c App) GetJson() revel.Result {
 	rand.Seed(time.Now().UnixNano())
-	i := rand.Intn(5)
 	people := []string{"Takashi", "Yudai", "Fumimasa", "tenntenn", "Hiroshi"}
-	p := &Person{people[i], rand.Int63n(100)}
+	p := &Person{people[rand.Intn(5)], rand.Int63n(100)}
 	return c.RenderJSON(p)
 }
 
