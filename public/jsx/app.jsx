@@ -50,25 +50,27 @@ ReactDOM.render(
 );*/}
 
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { Router, Route } from 'react-router';
 import { BrowserRouter, Link } from 'react-router-dom'
 
 class Wrapper extends Component {
   render() {
-    let { children } = this.props;
     return (
       <div className="wrapper">
-        <header>
-          {children}
-        </header>
-        <nav>
-          <ul>
-            <li><Link to="/">HOME</Link></li>
-            <li><Link to="/a">Page A</Link></li>
-            <li><Link to="/b">Page B</Link></li>
-          </ul>
-        </nav>
+        <div>
+          <Route exact path='/' component={App} />
+          <Route path='/a' component={PageA} />
+          <Route path='/b' component={PageB} />
+
+          <nav>
+            <ul>
+              <li><Link to="/">HOME</Link></li>
+              <li><Link to="/a">Page A</Link></li>
+              <li><Link to="/b">Page B</Link></li>
+            </ul>
+          </nav>
+        </div>
       </div>
     );
   }
@@ -98,15 +100,8 @@ class PageB extends Component {
   }
 }
 
-render((
+ReactDOM.render(
   <BrowserRouter>
-    <div>
-      <Route path='/' component={Wrapper}>
-        <Route path='/' component={App} />
-        <Route path='/a' component={PageA} />
-        <Route path='/b' component={PageB} />
-      </Route>
-    </div>
-  </BrowserRouter>
-), document.getElementById("root"));
-
+    <Wrapper />
+  </BrowserRouter>,
+  document.getElementById("root"));
