@@ -1,16 +1,32 @@
-{/*import React, { Component } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route } from 'react-router';
+import { BrowserRouter, Link } from 'react-router-dom';
 import { Button, ButtonToolbar, Panel } from 'react-bootstrap';
 import $ from 'jquery';
+import SimpleLine from './graph'
 
-class App extends Component {
+class Wrapper extends Component {
   constructor(props) {
     super(props)
     this.state = {
       count: 0
-    };
+    }
+    this.onClick = this.onClick.bind(this)
   }
-
+  componentDidMount() {
+    $.get("/getUser", function (list) {
+      if (!list) {
+        console.log("nothing");
+      } else {
+        console.log(list);
+        this.setState({
+          name: list.name,
+          age: list.age
+        });
+      }
+    }.bind(this));
+  }
   onClick() {
     this.setState({
       count: this.state.count + 1
@@ -27,45 +43,18 @@ class App extends Component {
       }
     }.bind(this));
   }
-
-  render() {
-    return (
-      <div>
-        <h1>{this.state.count}</h1>
-        <ButtonToolbar>
-          <Button onClick={this.onClick.bind(this)} bsStyle="success">Count Up!</Button>
-        </ButtonToolbar>
-        <Panel>
-          <Panel.Heading>{this.state.name}</Panel.Heading>
-          <Panel.Body>{this.state.age}</Panel.Body>
-        </Panel>
-      </div>
-    )
-  }
-}
-
-ReactDOM.render(
-  <App />,
-  document.getElementById("root")
-);*/}
-
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route } from 'react-router';
-import { BrowserRouter, Link } from 'react-router-dom'
-
-class Wrapper extends Component {
   render() {
     return (
       <div className="wrapper">
         <div>
-          <Route exact path='/' component={App} />
+          <Route exact path='/' component={SimpleLine} />
+          <Route path='/button' render={props => <App detail={this.state} onClick={this.onClick} />} />
           <Route path='/a' component={PageA} />
           <Route path='/b' component={PageB} />
-
           <nav>
             <ul>
               <li><Link to="/">HOME</Link></li>
+              <li><Link to='/button'>Button</Link></li>
               <li><Link to="/a">Page A</Link></li>
               <li><Link to="/b">Page B</Link></li>
             </ul>
@@ -77,10 +66,22 @@ class Wrapper extends Component {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     return (
-      <h1>App</h1>
-    );
+      <div>
+        <h1>{this.props.detail.count}</h1>
+        <ButtonToolbar>
+          <Button onClick={this.props.onClick} bsStyle="success">Count Up!</Button>
+        </ButtonToolbar>
+        <Panel>
+          <Panel.Heading>{this.props.detail.name}</Panel.Heading>
+          <Panel.Body>{this.props.detail.age}</Panel.Body>
+        </Panel>
+      </div>
+    )
   }
 }
 
@@ -104,4 +105,5 @@ ReactDOM.render(
   <BrowserRouter>
     <Wrapper />
   </BrowserRouter>,
-  document.getElementById("root"));
+  document.getElementById("root")
+);
