@@ -9,6 +9,10 @@ module:testrunner
 
 GET     /                                       App.Index
 GET     /getUser                                App.GetJson
+POST    /addQuiz                                App.AddQuiz
+GET     /showQuiz                               App.ShowQuiz
+POST    /sendResult                             App.SendResult
+POST    /showPerson                             App.ShowPerson
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

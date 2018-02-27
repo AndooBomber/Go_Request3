@@ -4,3 +4,4 @@ routes/
 node_modules/
 Godeps/Readme/
 Godeps/_workspace/
+.idea/
