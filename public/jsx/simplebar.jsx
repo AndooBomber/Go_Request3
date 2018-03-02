@@ -11,15 +11,17 @@ export default class SimpleBar extends Component {
     }
   }
   render() {
-    const nameList = Array(this.state.lists.length);
+    const nameList = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
     const dataBox = [];
     const dataList = () => {
-      nameList.map((list, index) => {
+      nameList.map(name => {
         let obj = {
-          name: `${this.state.lists[index]["name"]}`,
-          correct: Math.floor(this.state.lists[index]["correct"]),
+          name: `Page ${name}`,
+          uv: Math.floor(Math.random() * 9999),
+          pv: Math.floor(Math.random() * 9999),
+          amt: Math.floor(Math.random() * 9999)
         }
-        dataBox.push(obj)
+        dataBox.push(obj);
       })
       return dataBox;
     }
